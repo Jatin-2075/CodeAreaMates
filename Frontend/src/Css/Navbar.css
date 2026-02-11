@@ -1,0 +1,179 @@
+:root {
+    --island-bg: rgba(20, 20, 20, 0.85); 
+    --island-border: rgba(255, 255, 255, 0.12); 
+    --island-glow: rgba(255, 255, 255, 0.05);
+    --accent-color: #0A84FF; 
+    --text-primary: #ffffff;
+    --text-secondary: #86868b;
+    --easing: cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+.island-dock {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%); 
+    
+    width: 72px;
+    padding: 24px 10px;
+    
+    background: var(--island-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    border: 1px solid var(--island-border);
+    border-radius: 40px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(0, 0, 0, 0.5); 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    z-index: 1000;
+    
+    transition: height 0.3s var(--easing);
+}
+
+.island-logo {
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    animation: breathe 4s ease-in-out infinite;
+}
+
+.island-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+}
+
+.island-item {
+    position: relative;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: all 0.3s var(--easing);
+}
+
+.island-item:hover {
+    color: var(--text-primary);
+    background: var(--island-glow);
+    transform: scale(1.15);
+}
+
+.island-item.active {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.active-dot {
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+.island-tooltip {
+    position: absolute;
+    left: 60px; 
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-10px) scale(0.9);
+    transition: all 0.2s var(--easing);
+    backdrop-filter: blur(10px);
+}
+
+.island-item:hover .island-tooltip {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+.island-bottom {
+    margin-top: auto;
+    border-top: 1px solid var(--island-border);
+    padding-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.island-item.logout:hover {
+    color: #FF453A;
+    background: rgba(255, 69, 58, 0.15);
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+@media (max-width: 768px) {
+    .island-dock {
+        left: 50%;
+        top: auto;
+        bottom: 20px;
+        transform: translateX(-50%);
+        
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        padding: 12px 24px;
+        border-radius: 30px;
+    }
+
+    .island-nav {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .island-bottom {
+        border-top: none;
+        border-left: 1px solid var(--island-border);
+        padding-top: 0;
+        padding-left: 15px;
+        margin-left: 15px;
+        width: auto;
+    }
+
+
+    .island-tooltip {
+        display: none;
+    }
+    
+    .active-dot {
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -4px;
+        transform: translateX(-50%);
+    }
+}
