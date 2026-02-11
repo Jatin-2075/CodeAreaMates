@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
-import "../Css/Intro.css";
+import "../../Css/Intro.css";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const IntroPage = () => {
     const observerRef = useRef<IntersectionObserver | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Intersection Observer for scroll animations
         observerRef.current = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -30,7 +31,6 @@ const IntroPage = () => {
 
     return (
         <div className="intro-container" role="main">
-            {/* Hero Section */}
             <section className="hero-section">
                 <div className="hero-background">
                     <div className="gradient-orb orb-1"></div>
@@ -41,7 +41,7 @@ const IntroPage = () => {
                 <div className="hero-content animate-on-scroll">
                     <div className="hero-badge">
                         <span className="badge-dot"></span>
-                        Live Now
+                        Under Work
                     </div>
 
                     <h1 className="hero-headline">
@@ -54,37 +54,36 @@ const IntroPage = () => {
                     </p>
 
                     <div className="hero-ctas">
-                        <button className="cta-button student-login">
-                            <span>Login as Student</span>
+                        <button className="cta-button student-login" onClick={() => navigate("/login")}>
+                            <span>Login</span>
                             <svg className="button-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
-                        <button className="cta-button admin-login">
-                            <span>Login as College/Admin</span>
+                        <button className="cta-button admin-login"  onClick={() => navigate("/signup")}>
+                            <span>Signup New User</span>
                         </button>
                     </div>
 
                     <div className="hero-stats">
                         <div className="stat-item">
-                            <div className="stat-number">120+</div>
+                            <div className="stat-number">1</div>
                             <div className="stat-label">Colleges</div>
                         </div>
                         <div className="stat-divider"></div>
                         <div className="stat-item">
-                            <div className="stat-number">8k+</div>
+                            <div className="stat-number">1</div>
                             <div className="stat-label">Events</div>
                         </div>
                         <div className="stat-divider"></div>
                         <div className="stat-item">
-                            <div className="stat-number">50k+</div>
+                            <div className="stat-number">2</div>
                             <div className="stat-label">Students</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Features Grid */}
             <section className="features-section">
                 <div className="section-header animate-on-scroll">
                     <h2 className="section-title">Why Students Love It</h2>
@@ -133,8 +132,6 @@ const IntroPage = () => {
                     </div>
                 </div>
             </section>
-
-            {/* How it Works */}
             <section className="how-it-works-section animate-on-scroll">
                 <h2 className="section-title">How it works</h2>
 
@@ -169,7 +166,6 @@ const IntroPage = () => {
                 </div>
             </section>
 
-            {/* Testimonials */}
             <section className="testimonials-section">
                 <div className="testimonials-grid">
                     <div className="testimonial-card animate-on-scroll" style={{ animationDelay: "0.1s" }}>
@@ -198,7 +194,6 @@ const IntroPage = () => {
                 </div>
             </section>
 
-            {/* FAQ */}
             <section className="faq-section animate-on-scroll">
                 <h2 className="section-title">Quick FAQ</h2>
 
@@ -225,36 +220,34 @@ const IntroPage = () => {
                 </div>
             </section>
 
-            {/* Final CTA */}
             <section className="final-cta-section animate-on-scroll">
                 <div className="cta-content">
                     <h2 className="cta-title">Ready to get started?</h2>
                     <p className="cta-subtitle">Join thousands of students already using the platform</p>
 
                     <div className="cta-buttons">
-                        <button className="cta-button student-login large">
-                            <span>Login as Student</span>
+                        <button className="cta-button student-login large" onClick={() => navigate("/login")}>
+                            <span>Login</span>
                             <svg className="button-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
-                        <button className="cta-button admin-login outline">
-                            <span>Login as College/Admin</span>
+                        <button className="cta-button admin-login outline"  onClick={() => navigate("/signup")}>
+                            <span>Signup</span>
                         </button>
                     </div>
                 </div>
             </section>
 
-            {/* Footer */}
             <footer className="footer">
                 <div className="footer-content">
                     <p className="footer-text">Made for students, by students.</p>
                     <div className="footer-links">
-                        <a href="#" className="footer-link">Privacy</a>
+                        <NavLink to="/privacy" className="footer-link">Privacy</NavLink>
                         <span className="footer-dot">•</span>
-                        <a href="#" className="footer-link">Terms</a>
+                        <NavLink to="/terms" className="footer-link">Terms</NavLink>
                         <span className="footer-dot">•</span>
-                        <a href="#" className="footer-link">Contact</a>
+                        <NavLink to="/contact" className="footer-link">Contact</NavLink>
                     </div>
                 </div>
             </footer>

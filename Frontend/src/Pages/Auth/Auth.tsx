@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import "../../Css/Auth.css"
 export const Login = () => {
 
     const navigate = useNavigate()
@@ -10,7 +10,7 @@ export const Login = () => {
 
     const HandleSubmit = async () => {
         try {
-            const res = await fetch(`rf/api/token/`, {
+            const res = await fetch(`API/api/token/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const Signup = () => {
         }
 
         try {
-            const res = await fetch(`1/auth/signup/`, {
+            const res = await fetch(`API/auth/signup/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export const Signup = () => {
             alert(data.msg);
 
             if (data.success) {
-                const reslogin = await fetch(`x/api/token/`, {
+                const reslogin = await fetch(`API/api/token/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -135,15 +135,14 @@ export const Signup = () => {
 
                 localStorage.setItem("access", datalogin.access)
                 localStorage.setItem("refresh", datalogin.refresh)
-                const access = localStorage.getItem("access")
+                localStorage.setItem("username", Username)
 
+                const access = localStorage.getItem("access")
                 console.log(datalogin);
 
-                if (access) {
-                    
+                if (access) {   
                     navigate("/pageone")
                 }
-
                 else {
                     alert("Something went wrong check")
                 }
