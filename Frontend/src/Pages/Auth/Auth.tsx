@@ -35,7 +35,7 @@ export const Login = () => {
             console.log(data);
 
             if (access) {
-                navigate("/dashboard")
+                navigate("/Explore")
             }
 
             else {

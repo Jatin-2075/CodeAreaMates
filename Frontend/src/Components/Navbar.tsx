@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import {
-    Search, Users, User, Settings,
+    Compass, UserPlus, UserCircle, Sliders,
     LogOut
 } from 'lucide-react';
 import "../Css/Navbar.css"
@@ -9,14 +9,21 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const handleLogout = () => {
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("username")
+        navigate("/")
+    }
+
     const menuItems = [
-        { icon: <Search size={24} />, label: 'Explore', path: '/explore' },
-        { icon: <Users size={24} />, label: 'Network', path: '/network' },
-        { icon: <User size={24} />, label: 'Profile', path: '/profile' },
-        { icon: <Settings size={24} />, label: 'Settings', path: '/settings' },
+        { icon: <Compass size={24} />, label: 'Explore', path: '/explore' },
+        { icon: <UserPlus size={24} />, label: 'Mates', path: '/mates' },
+        { icon: <UserCircle size={24} />, label: 'Profile', path: '/profile' },
+        { icon: <Sliders size={24} />, label: 'Settings', path: '/settings' },
     ];
 
-    const handleNav = (path:string) => {
+    const handleNav = (path: string) => {
         navigate(path);
     };
 
@@ -47,7 +54,7 @@ const Sidebar = () => {
             </nav>
 
             <div className="island-bottom">
-                <button className="island-item logout" aria-label="Logout">
+                <button className="island-item logout" aria-label="Logout" onClick={handleLogout}>
                     <span className="icon-wrapper"><LogOut size={22} /></span>
                     <span className="island-tooltip">Logout</span>
                 </button>

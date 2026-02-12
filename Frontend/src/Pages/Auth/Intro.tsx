@@ -214,7 +214,7 @@ const IntroPage = () => {
                             <span className="faq-icon">+</span>
                         </div>
                         <div className="faq-answer">
-                            Colleges and admins get a simple dashboard to post and verify events.
+                            Colleges and admins get a simple Explore to post and verify events.
                         </div>
                     </div>
                 </div>

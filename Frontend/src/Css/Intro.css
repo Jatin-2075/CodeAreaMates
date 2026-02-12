@@ -1,43 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@400;500;700&display=swap');
 
 :root {
-  /* --- Core Colors --- */
-  --primary: #8b5cf6;          /* smooth purple */
+  --primary: #8b5cf6;
   --primary-dark: #7c3aed;
   --primary-light: #a78bfa;
-
-  --secondary: #c084fc;        /* soft accent purple */
+  --secondary: #c084fc;
   --accent: #a855f7;
-
   --success: #22c55e;
-
-  /* --- Dark Base --- */
-  --background: #030307;       /* true deep black */
+  --background: #030307;    
   --surface: #09090f;
   --surface-2: #0f0f17;
-
-  /* --- Text --- */
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-tertiary: #64748b;
-
-  /* --- Borders & Glass --- */
   --border: rgba(255, 255, 255, 0.08);
   --glass: rgba(139, 92, 246, 0.06);
-
-  /* --- Shadows (dark optimized) --- */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 6px 10px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 18px rgba(0, 0, 0, 0.5);
   --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.6);
-
-  /* --- Radius --- */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
-
-  /* --- Transitions --- */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
