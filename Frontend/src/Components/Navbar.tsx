@@ -10,10 +10,7 @@ const Sidebar = () => {
     const location = useLocation();
 
     const handleLogout = () => {
-        localStorage.removeItem("access")
-        localStorage.removeItem("refresh")
-        localStorage.removeItem("username")
-        navigate("/")
+
     }
 
     const menuItems = [

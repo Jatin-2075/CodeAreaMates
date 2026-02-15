@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../Css/Auth.css"
+
+
 export const Login = () => {
-
     const navigate = useNavigate()
-
+    
     const [UserName, SetUserName] = useState<string>("");
     const [Password, SetPassword] = useState<string>("");
 

@@ -64,7 +64,7 @@ const dummyUser: ProfileType = {
 export const Profile = () => {
     const { username } = useParams<{ username: string }>();
 
-    const user = dummyUser; // later replace with API fetch using username
+    const user = dummyUser;
 
     return (
         <div className="profile-container">
