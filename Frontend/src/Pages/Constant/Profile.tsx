@@ -65,6 +65,7 @@ export const Profile = () => {
     const { username } = useParams<{ username: string }>();
 
     const user = dummyUser;
+    console.log(username)
 
     return (
         <div className="profile-container">
