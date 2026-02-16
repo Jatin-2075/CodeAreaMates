@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../Css/explore.css"
+import "../../Css/events.css"
 type Event = {
     id: number;
     title: string;

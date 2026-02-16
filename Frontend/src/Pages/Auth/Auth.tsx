@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../../Css/Auth.css"
 
 
 export const Login = () => {
     const navigate = useNavigate()
-    
+
     const [UserName, SetUserName] = useState<string>("");
     const [Password, SetPassword] = useState<string>("");
+
+    useEffect(() => {
+        const user = localStorage.getItem("username") || "";
+        SetUserName(user);
+    }, []);
 
     const HandleSubmit = async () => {
         try {
@@ -77,7 +82,6 @@ export const Login = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 
@@ -139,9 +143,8 @@ export const Signup = () => {
                 localStorage.setItem("username", Username)
 
                 const access = localStorage.getItem("access")
-                console.log(datalogin);
 
-                if (access) {   
+                if (access) {
                     navigate("/pageone")
                 }
                 else {
@@ -189,7 +192,7 @@ export const Signup = () => {
                         </button>
 
                         <div className="login-redirect">
-                            <p>Already have an account?</p> <NavLink to="/login" >Login</NavLink> 
+                            <p>Already have an account?</p> <NavLink to="/login" >Login</NavLink>
                         </div>
                     </div>
                 </div>

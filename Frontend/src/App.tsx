@@ -6,6 +6,9 @@ import { Signup, Login } from "./Pages/Auth/Auth";
 import MainLayout from "./Components/Layout";
 import { Explore } from "./Pages/Constant/Events";
 import { Profile } from "./Pages/Constant/Profile";
+import PastEvents from "./Pages/Constant/Past_Events";
+import Mates from "./Pages/Constant/Mates";
+import Settings from "./Pages/Constant/Settings";
 
 const App = () => {
     return (
@@ -18,7 +21,10 @@ const App = () => {
 
                 <Route element={<MainLayout/>}>
                     <Route path="/explore" element={<Explore/>}/>
+                    <Route path="/past-events" element={<PastEvents/>}/>
+                    <Route path="/mates" element={<Mates/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
                 </Route>
 
             </Routes>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../Css/Intro.css";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom";
 const IntroPage = () => {
     const observerRef = useRef<IntersectionObserver | null>(null);
     const navigate = useNavigate();
+    
+    const [where, setwhere] = useState<string>("explore")
 
     useEffect(() => {
         observerRef.current = new IntersectionObserver(
@@ -28,6 +30,13 @@ const IntroPage = () => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        const access = localStorage.getItem("access")
+        if(!access){
+            setwhere("login")
+        }
+    }, [])
 
     return (
         <div className="intro-container" role="main">
@@ -54,7 +63,7 @@ const IntroPage = () => {
                     </p>
 
                     <div className="hero-ctas">
-                        <button className="cta-button student-login" onClick={() => navigate("/login")}>
+                        <button className="cta-button student-login" onClick={() => navigate(`/${where}`)}>
                             <span>Login</span>
                             <svg className="button-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -1,0 +1,82 @@
+.mates-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1446 0%, #070515 60%);
+  color: #e5e7eb;
+  padding: 60px 80px;
+}
+
+.mates-page h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #c4b5fd;
+}
+
+/* grid */
+.mates-grid {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* card */
+.mate-card {
+  width: 260px;
+  padding: 26px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #0d0a2a, #07051c);
+  border: 1px solid rgba(124, 92, 255, 0.15);
+  text-align: center;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.mate-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 25px rgba(124,92,255,0.25),
+    0 10px 40px rgba(0,0,0,0.7);
+}
+
+/* avatar */
+.avatar {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #7c5cff, #a855f7);
+  box-shadow: 0 0 18px rgba(168,85,247,0.6);
+}
+
+/* text */
+.mate-card h3 {
+  margin-bottom: 6px;
+}
+
+.mate-card p {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+/* button */
+.mate-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(90deg, #7c5cff, #a855f7);
+  transition: 0.25s;
+}
+
+.mate-btn:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 0 18px rgba(168,85,247,0.6);
+}

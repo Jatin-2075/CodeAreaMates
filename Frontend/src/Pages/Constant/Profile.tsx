@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import "../../Css/profile.css";
+
+
 type Achievement = {
     type: string;
     title: string;
@@ -69,7 +71,6 @@ export const Profile = () => {
 
     return (
         <div className="profile-container">
-            {/* Top Section */}
             <div className="profile-header">
                 <div className="profile-image">
                     <img
@@ -91,7 +92,6 @@ export const Profile = () => {
                 </div>
             </div>
 
-            {/* Skills Section */}
             <div className="profile-section">
                 <h3 className="section-title">Skills</h3>
                 <div className="skills-list">
@@ -103,7 +103,6 @@ export const Profile = () => {
                 </div>
             </div>
 
-            {/* Achievements Section */}
             <div className="profile-section">
                 <h3 className="section-title">Achievements</h3>
                 {user.achievements.map((ach, index) => (
@@ -115,7 +114,6 @@ export const Profile = () => {
                 ))}
             </div>
 
-            {/* Events Section */}
             <div className="profile-section">
                 <h3 className="section-title">Events</h3>
                 {user.events.map((event, index) => (

@@ -1,0 +1,49 @@
+.settings-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1446 0%, #070515 60%);
+  color: #e5e7eb;
+  padding: 60px 80px;
+}
+
+.settings-card {
+  width: 420px;
+  background: #0d0a2a;
+  padding: 30px;
+  border-radius: 18px;
+  border: 1px solid rgba(124,92,255,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.setting-link {
+  display: block;
+  margin-top: 18px;
+  text-decoration: none;
+  color: #c4b5fd;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.setting-link:hover {
+  color: #a855f7;
+}
+
+/* toggle */
+.toggle {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #222;
+  color: white;
+}
+
+.toggle.on {
+  background: linear-gradient(90deg, #7c5cff, #a855f7);
+}

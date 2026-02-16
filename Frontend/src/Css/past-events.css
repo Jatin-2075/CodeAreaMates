@@ -1,0 +1,82 @@
+:root {
+  --bg: #0b0820;
+  --card: #0f0b2e;
+  --accent1: #7c5cff;
+  --accent2: #a855f7;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+/* page */
+.past-events {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1446 0%, #070515 60%);
+  color: var(--text);
+  padding: 60px 80px;
+}
+
+.past-events h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #c4b5fd;
+}
+
+/* grid */
+.events-grid {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* card */
+.event-card {
+  width: 340px;
+  padding: 28px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #0d0a2a, #07051c);
+  border: 1px solid rgba(124, 92, 255, 0.15);
+  box-shadow:
+    0 0 0 rgba(124,92,255,0),
+    0 10px 25px rgba(0,0,0,0.5);
+  transition: 0.25s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 25px rgba(124,92,255,0.25),
+    0 10px 40px rgba(0,0,0,0.7);
+}
+
+/* text */
+.event-card h3 {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.event-card p {
+  color: var(--muted);
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* button */
+.event-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  transition: 0.25s;
+}
+
+.event-btn:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 0 18px rgba(168,85,247,0.6);
+}

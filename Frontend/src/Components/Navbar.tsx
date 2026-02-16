@@ -1,21 +1,19 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import {
-    Compass, UserPlus, UserCircle, Sliders,
-    LogOut
+    Compass, UserPlus, UserCircle, Sliders, ClipboardClock, LogOut
 } from 'lucide-react';
 import "../Css/Navbar.css"
+import { useLogout } from "../Config/Auth";
 
 const Sidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
-
-    const handleLogout = () => {
-
-    }
+    const logout = useLogout();
 
     const menuItems = [
         { icon: <Compass size={24} />, label: 'Explore', path: '/explore' },
         { icon: <UserPlus size={24} />, label: 'Mates', path: '/mates' },
+        { icon: <ClipboardClock size={24}/>, label: 'Past Events', path: '/past-events'},
         { icon: <UserCircle size={24} />, label: 'Profile', path: '/profile' },
         { icon: <Sliders size={24} />, label: 'Settings', path: '/settings' },
     ];
@@ -26,10 +24,6 @@ const Sidebar = () => {
 
     return (
         <aside className="island-dock">
-            {/* Top Logo / Brand
-            <div className="island-logo">
-                
-            </div> */}
 
             <nav className="island-nav">
                 {menuItems.map((item) => {
@@ -51,7 +45,7 @@ const Sidebar = () => {
             </nav>
 
             <div className="island-bottom">
-                <button className="island-item logout" aria-label="Logout" onClick={handleLogout}>
+                <button className="island-item logout" aria-label="Logout" onClick={logout}>
                     <span className="icon-wrapper"><LogOut size={22} /></span>
                     <span className="island-tooltip">Logout</span>
                 </button>
