@@ -4,11 +4,11 @@ import IntroPage from "./Pages/Auth/Intro";
 import { Signup, Login } from "./Pages/Auth/Auth";
 
 import MainLayout from "./Components/Layout";
-import { Explore } from "./Pages/Constant/Events";
-import { Profile } from "./Pages/Constant/Profile";
-import PastEvents from "./Pages/Constant/Past_Events";
-import Mates from "./Pages/Constant/Mates";
-import Settings from "./Pages/Constant/Settings";
+import { Explore } from "./Pages/Core/Events";
+import { Profile } from "./Pages/Core/Profile";
+import PastEvents from "./Pages/Core/Past_Events";
+import Mates from "./Pages/Core/Mates";
+import Settings from "./Pages/Core/Settings";
 
 const App = () => {
     return (

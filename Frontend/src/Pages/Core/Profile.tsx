@@ -22,10 +22,11 @@ type ProfileType = {
     year: number;
     email: string;
     rating: number;
-    skills: string[];
+    bio: string;
     achievements: Achievement[];
     events: Event[];
 };
+
 
 const dummyUser: ProfileType = {
     name: "Jatin",
@@ -34,7 +35,8 @@ const dummyUser: ProfileType = {
     year: 3,
     email: "jatin@email.com",
     rating: 4.6,
-    skills: ["React", "TypeScript", "C++"],
+    bio: "Frontend developer, does React UI and project structuring. Not good at PPT but carries team during deadlines.",
+
     achievements: [
         {
             type: "Hackathon",
@@ -93,15 +95,10 @@ export const Profile = () => {
             </div>
 
             <div className="profile-section">
-                <h3 className="section-title">Skills</h3>
-                <div className="skills-list">
-                    {user.skills.map((skill, index) => (
-                        <span key={index} className="skill-badge">
-                            {skill}
-                        </span>
-                    ))}
-                </div>
+                <h3 className="section-title">About</h3>
+                <p className="profile-bio">{user.bio}</p>
             </div>
+
 
             <div className="profile-section">
                 <h3 className="section-title">Achievements</h3>

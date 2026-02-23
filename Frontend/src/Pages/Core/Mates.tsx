@@ -10,7 +10,7 @@ interface Mate {
 
 export default function Mates() {
     const [mates, setMates] = useState<Mate[]>([]);
-
+   
     useEffect(() => {
         const fetchMates = async () => {
             try {

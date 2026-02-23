@@ -1,0 +1,7 @@
+.proposal-box{max-width:500px;margin:30px auto;border:1px solid #ddd;padding:20px;border-radius:14px;background:#fafafa;font-family:Arial}
+.proposal-title{font-size:22px;font-weight:700;margin-bottom:15px}
+.proposal-input,.proposal-textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+.proposal-textarea{min-height:120px;resize:vertical}
+.proposal-btn{margin-top:10px;background:#111;color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer}
+.proposal-btn:hover{opacity:.85}
+.proposal-status{margin-top:10px;font-size:14px;color:#333}
