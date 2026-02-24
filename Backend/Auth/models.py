@@ -11,7 +11,7 @@ class UserDetails(models.Model):
         return self.user.username
 
 
-class Profile(models.Model):
+class ProfileTable(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 
     name = models.CharField(max_length=30)
@@ -24,7 +24,7 @@ class Profile(models.Model):
         return self.user.username
 
 
-class Event(models.Model):
+class EventTable(models.Model):
     name = models.CharField(max_length=80)
     description = models.TextField(blank=True)
     date = models.DateField()
@@ -35,7 +35,7 @@ class Event(models.Model):
         return self.name
 
 
-class ParticipationRequest(models.Model):
+class ParticipationRequestTable(models.Model):
     STATUS_CHOICES = [
         ("pending","Pending"),
         ("approved","Approved"),
@@ -56,7 +56,7 @@ class ParticipationRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Participation(models.Model):
+class ParticipationTable(models.Model):
     ROLE_CHOICES = [
         ("leader","Leader"),
         ("member","Member"),
@@ -71,7 +71,7 @@ class Participation(models.Model):
         unique_together = ("user","event")
 
 
-class Achievement(models.Model):
+class AchievementTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
@@ -80,7 +80,7 @@ class Achievement(models.Model):
     date = models.DateField()
 
 
-class Story(models.Model):
+class StoryTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
@@ -90,12 +90,12 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class StoryImage(models.Model):
+class StoryImageTable(models.Model):
     story = models.ForeignKey(Story, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to="story_images/")
 
 
-class StoryLike(models.Model):
+class StoryLikeTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     story = models.ForeignKey(Story, on_delete=models.CASCADE)
 
@@ -103,7 +103,7 @@ class StoryLike(models.Model):
         unique_together = ("user","story")
 
 
-class StoryComment(models.Model):
+class StoryCommentTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     story = models.ForeignKey(Story, on_delete=models.CASCADE)
     content = models.TextField()
