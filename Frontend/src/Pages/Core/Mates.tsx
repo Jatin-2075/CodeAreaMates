@@ -14,9 +14,13 @@ export default function Mates() {
     useEffect(() => {
         const fetchMates = async () => {
             try {
-                const res = await API("GET", '/mates')
+                const res = await API("GET", "/mates");
 
-                setMates(res.data);
+                // your backend format -> { success, data }
+                if (res.success) {
+                    setMates(res.data);
+                }
+
             } catch (err) {
                 console.log(err);
             }
@@ -36,11 +40,11 @@ export default function Mates() {
                     {mates.map((mate) => (
                         <div key={mate.id} className="mate-card">
                             <div className="avatar">
-                                {mate.username.charAt(0).toUpperCase()}
+                                {mate.username?.charAt(0).toUpperCase()}
                             </div>
 
                             <h3>{mate.username}</h3>
-                            <p>{mate.email}</p>
+                            <p>{mate.email || "No email"}</p>
 
                             <button className="mate-btn">View Profile</button>
                         </div>

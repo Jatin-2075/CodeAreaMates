@@ -1,7 +1,106 @@
-.proposal-box{max-width:500px;margin:30px auto;border:1px solid #ddd;padding:20px;border-radius:14px;background:#fafafa;font-family:Arial}
-.proposal-title{font-size:22px;font-weight:700;margin-bottom:15px}
-.proposal-input,.proposal-textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
-.proposal-textarea{min-height:120px;resize:vertical}
-.proposal-btn{margin-top:10px;background:#111;color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer}
-.proposal-btn:hover{opacity:.85}
-.proposal-status{margin-top:10px;font-size:14px;color:#333}
+.proposal-box {
+  width: min(500px, 90%);
+  margin: clamp(2rem, 5vh, 4rem) auto;
+  padding: clamp(1.25rem, 5vw, 2rem);
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 18px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-primary, #111827);
+}
+
+.proposal-title {
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+
+.proposal-input, 
+.proposal-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 8px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fdfdfd;
+  font-size: 16px;
+  color: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.proposal-input:focus, 
+.proposal-textarea:focus {
+  outline: none;
+  border-color: var(--primary, #6366f1);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.proposal-textarea {
+  min-height: 140px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+
+.proposal-btn {
+  margin-top: 1rem;
+  width: 100%; 
+  background: #111827;
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .proposal-btn {
+    width: auto;
+    padding: 12px 24px;
+  }
+}
+
+.proposal-btn:hover {
+  background: #374151;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.proposal-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+
+.proposal-status {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.proposal-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #10b981; 
+  border-radius: 50%;
+}

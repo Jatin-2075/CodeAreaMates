@@ -1,33 +1,170 @@
-/* Container */
-.container{max-width:900px;margin:40px auto;font-family:Arial,Helvetica,sans-serif}
-.heading{font-size:28px;font-weight:700;margin-bottom:20px}
+.container {
+  width: min(900px, 92%); 
+  margin: clamp(1.5rem, 5vh, 3rem) auto;
+  font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
 
-/* Form */
-.story-form{border:1px solid #ddd;padding:16px;border-radius:12px;margin-bottom:30px;background:#fafafa}
-.input,.textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
-.textarea{min-height:120px;resize:vertical}
+.heading {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
 
-.rating{display:flex;align-items:center;gap:6px;margin:8px 0}
-.star{background:none;border:none;font-size:20px;color:#bbb;cursor:pointer}
-.star.active{color:#f5b301}
+.story-form {
+  background: #ffffff;
+  border: 1px solid #efefef;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 16px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
 
-.preview{display:flex;gap:10px;margin:10px 0}
-.preview-img{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid #ddd}
+.input, .textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 8px 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
 
-.post-btn{background:#111;color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer}
-.post-btn:hover{opacity:.85}
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #111;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.05);
+}
 
-/* Stories */
-.stories{display:flex;flex-direction:column;gap:20px}
-.story-card{border:1px solid #e5e5e5;border-radius:14px;padding:16px;background:#fff}
-.story-header{display:flex;justify-content:space-between;align-items:center}
-.club{font-size:13px;color:#777}
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
 
-.story-rating{color:#f5b301;margin:6px 0}
-.story-text{color:#333;line-height:1.5}
+.rating {
+  display: flex;
+  gap: 4px;
+  margin: 0.75rem 0;
+}
 
-.story-images{display:flex;gap:10px;margin-top:10px}
-.story-img{width:90px;height:90px;object-fit:cover;border-radius:10px;border:1px solid #ddd}
+.star {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  padding: 2px;
+}
 
-.like-btn{margin-top:10px;background:#f1f1f1;border:none;padding:6px 12px;border-radius:999px;cursor:pointer}
-.like-btn:hover{background:#e2e2e2}
+.star:hover {
+  transform: scale(1.2);
+}
+
+.star.active {
+  color: #f5b301;
+}
+
+.post-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  width: fit-content;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.post-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stories {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.story-card {
+  border: 1px solid #efefef;
+  border-radius: 18px;
+  padding: clamp(1rem, 4vw, 1.5rem);
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.story-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.club {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.story-rating {
+  color: #f5b301;
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.story-text {
+  color: #334155;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.story-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.story-img {
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #f1f5f9;
+  transition: opacity 0.2s;
+}
+
+.story-img:hover {
+  opacity: 0.9;
+}
+
+.like-btn {
+  margin-top: 1rem;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.like-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}

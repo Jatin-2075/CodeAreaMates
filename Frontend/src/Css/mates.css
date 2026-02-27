@@ -1,82 +1,125 @@
 .mates-page {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #1a1446 0%, #070515 60%);
+  min-height: 100dvh;
+  background: radial-gradient(circle at top, #1e1b4b 0%, #070515 70%);
   color: #e5e7eb;
-  padding: 60px 80px;
+  padding: clamp(1.5rem, 6vw, 5rem) clamp(1rem, 5vw, 5rem);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .mates-page h2 {
-  font-size: 32px;
-  margin-bottom: 40px;
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
   color: #c4b5fd;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-align: left;
 }
 
-/* grid */
 .mates-grid {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 2rem;
 }
 
-/* card */
 .mate-card {
-  width: 260px;
-  padding: 26px;
-  border-radius: 18px;
+  padding: 2rem;
+  border-radius: 20px;
   background: linear-gradient(145deg, #0d0a2a, #07051c);
   border: 1px solid rgba(124, 92, 255, 0.15);
   text-align: center;
-  transition: 0.25s ease;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mate-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(circle at top right, rgba(124, 92, 255, 0.05), transparent);
+  pointer-events: none;
 }
 
 .mate-card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 25px rgba(124,92,255,0.25),
-    0 10px 40px rgba(0,0,0,0.7);
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(124, 92, 255, 0.4);
+  box-shadow: 
+    0 0 30px rgba(124, 92, 255, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* avatar */
 .avatar {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 18px;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.25rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 1.75rem;
+  font-weight: 800;
   background: linear-gradient(135deg, #7c5cff, #a855f7);
-  box-shadow: 0 0 18px rgba(168,85,247,0.6);
+  color: white;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  flex-shrink: 0;
 }
 
-/* text */
 .mate-card h3 {
-  margin-bottom: 6px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .mate-card p {
   color: #9ca3af;
-  font-size: 14px;
-  margin-bottom: 18px;
+  font-size: 0.93rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
 }
 
-/* button */
 .mate-btn {
   width: 100%;
   padding: 12px;
+  margin-top: auto; 
   border-radius: 12px;
   border: none;
-  font-weight: 600;
+  font-weight: 700;
   color: white;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
   cursor: pointer;
   background: linear-gradient(90deg, #7c5cff, #a855f7);
-  transition: 0.25s;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
 }
 
 .mate-btn:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 0 18px rgba(168,85,247,0.6);
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  transform: translateY(-1px);
+}
+
+.mate-btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 480px) {
+  .mates-page {
+    padding: 2rem 1rem;
+  }
+  
+  .mates-grid {
+    gap: 1.25rem;
+  }
+  
+  .mate-card {
+    padding: 1.5rem;
+  }
 }

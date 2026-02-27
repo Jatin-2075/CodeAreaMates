@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API } from "../../../Config/api";
 
 type ProposalData = {
     role: string;
@@ -13,28 +14,29 @@ export default function ParticipationProposal({ eventId }: { eventId: number }) 
         status: "",
     });
 
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
 
     const submitProposal = async () => {
         if (loading) return;
+
         setLoading(true);
-        setData((p) => ({ ...p, status: "Sending..." }));
+        setData(p => ({ ...p, status: "Sending..." }));
 
         try {
-            const res = await fetch(`/api/events/${eventId}/participate/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({ role: data.role, message: data.message }),
+            const res = await API("POST", "/participation-request/save", {
+                event: eventId,
+                role: data.role,
+                message: data.message
             });
 
-            if (!res.ok) throw new Error("Failed");
+            if (res.success) {
+                setData(p => ({ ...p, message: "", status: "Proposal sent ✔" }));
+            } else {
+                setData(p => ({ ...p, status: "Failed to send" }));
+            }
 
-            setData((p) => ({ ...p, message: "", status: "Proposal sent ✔" }));
-        } catch (err) {
-            setData((p) => ({ ...p, status: "Error sending proposal" }));
+        } catch {
+            setData(p => ({ ...p, status: "Server error" }));
         } finally {
             setLoading(false);
         }
@@ -47,7 +49,7 @@ export default function ParticipationProposal({ eventId }: { eventId: number }) 
             <label>Role</label>
             <select
                 value={data.role}
-                onChange={(e) => setData((p) => ({ ...p, role: e.target.value }))}
+                onChange={(e) => setData(p => ({ ...p, role: e.target.value }))}
                 className="proposal-input"
             >
                 <option value="member">Member</option>
@@ -57,15 +59,13 @@ export default function ParticipationProposal({ eventId }: { eventId: number }) 
             <textarea
                 className="proposal-textarea"
                 value={data.message}
-                onChange={(e) => setData((p) => ({ ...p, message: e.target.value }))}
+                onChange={(e) => setData(p => ({ ...p, message: e.target.value }))}
                 placeholder="Write your proposal..."
             />
 
             <button onClick={submitProposal} className="proposal-btn" disabled={loading}>
                 {loading ? "Sending..." : "Send Proposal"}
             </button>
-
-
 
             {data.status && <p className="proposal-status">{data.status}</p>}
         </div>

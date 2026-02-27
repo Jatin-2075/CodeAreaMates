@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { API } from "../../Config/api";
 import "../../Css/profile.css";
-
 
 type Achievement = {
     type: string;
@@ -27,49 +28,27 @@ type ProfileType = {
     events: Event[];
 };
 
-
-const dummyUser: ProfileType = {
-    name: "Jatin",
-    age: 20,
-    branch: "Polymer Science",
-    year: 3,
-    email: "jatin@email.com",
-    rating: 4.6,
-    bio: "Frontend developer, does React UI and project structuring. Not good at PPT but carries team during deadlines.",
-
-    achievements: [
-        {
-            type: "Hackathon",
-            title: "Winner",
-            description: "Won 1st place in TechFest",
-            date: "2025-09-10",
-        },
-        {
-            type: "Hackathon",
-            title: "Winner",
-            description: "Won 1st place in TechFest",
-            date: "2025-09-10",
-        },
-    ],
-    events: [
-        {
-            name: "TechFest",
-            date: "2025-10-12",
-            role: "Participant",
-        },
-        {
-            name: "TechFest",
-            date: "2025-10-12",
-            role: "Participant",
-        },
-    ],
-};
-
 export const Profile = () => {
     const { username } = useParams<{ username: string }>();
+    const [user, setUser] = useState<ProfileType | null>(null);
 
-    const user = dummyUser;
-    console.log(username)
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const res = await API("GET", `/profile/${username}`);
+
+                if (res.success) {
+                    setUser(res.data);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        fetchProfile();
+    }, [username]);
+
+    if (!user) return <div className="profile-container">Loading profile...</div>;
 
     return (
         <div className="profile-container">
@@ -99,10 +78,9 @@ export const Profile = () => {
                 <p className="profile-bio">{user.bio}</p>
             </div>
 
-
             <div className="profile-section">
                 <h3 className="section-title">Achievements</h3>
-                {user.achievements.map((ach, index) => (
+                {user.achievements?.map((ach, index) => (
                     <div key={index} className="achievement-card">
                         <h4>{ach.title}</h4>
                         <p>{ach.description}</p>
@@ -113,7 +91,7 @@ export const Profile = () => {
 
             <div className="profile-section">
                 <h3 className="section-title">Events</h3>
-                {user.events.map((event, index) => (
+                {user.events?.map((event, index) => (
                     <div key={index} className="event-card">
                         <h4>{event.name}</h4>
                         <p>Role: {event.role}</p>

@@ -15,9 +15,12 @@ export default function PastEvents() {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const res = await API('GET', "/past-events")
+                const res = await API("GET", "/past-events");
 
-                setEvents(res.data);
+                if (res.success) {
+                    setEvents(res.data);
+                }
+
             } catch (err) {
                 console.log(err);
             }

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../../Css/events.css"
+
 type Event = {
     id: number;
     title: string;
@@ -8,25 +10,39 @@ type Event = {
     currentPeople: number;
 };
 
-const events: Event[] = [
-    {
-        id: 1,
-        title: "Tech Hackathon",
-        date: "2026-03-15",
-        requiredPeople: 50,
-        currentPeople: 32,
-    },
-    {
-        id: 2,
-        title: "Cultural Fest",
-        date: "2026-04-02",
-        requiredPeople: 100,
-        currentPeople: 76,
-    },
-];
-
 export const Explore = () => {
     const navigate = useNavigate();
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const res = await fetch("http://127.0.0.1:8000/events/", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    setEvents(data.data);
+                }
+            } catch (err) {
+                console.log("Error fetching events", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    if (loading) return <h2 className="explore-title">Loading events...</h2>;
 
     return (
         <div className="explore-container">

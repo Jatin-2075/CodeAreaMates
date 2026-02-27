@@ -1,49 +1,127 @@
 .settings-page {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #1a1446 0%, #070515 60%);
+  min-height: 100dvh;
+  background: radial-gradient(circle at top, #1e1b4b 0%, #070515 70%);
   color: #e5e7eb;
-  padding: 60px 80px;
+  padding: clamp(2rem, 8vw, 5rem) clamp(1rem, 5vw, 5rem);
+  font-family: 'Inter', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .settings-card {
-  width: 420px;
+  width: min(480px, 100%);
   background: #0d0a2a;
-  padding: 30px;
-  border-radius: 18px;
-  border: 1px solid rgba(124,92,255,0.15);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border-radius: 24px;
+  border: 1px solid rgba(124, 92, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.settings-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #c4b5fd;
+  text-align: left;
 }
 
 .setting-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-row:last-of-type {
+  border-bottom: none;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.setting-label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.setting-desc {
+  font-size: 0.85rem;
+  color: #9ca3af;
 }
 
 .setting-link {
-  display: block;
-  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1rem;
   text-decoration: none;
   color: #c4b5fd;
-  font-weight: 500;
-  transition: 0.2s;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  gap: 6px;
 }
 
 .setting-link:hover {
   color: #a855f7;
+  transform: translateX(4px);
 }
 
-/* toggle */
 .toggle {
-  padding: 8px 16px;
-  border-radius: 999px;
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 100px;
   border: none;
   cursor: pointer;
-  background: #222;
-  color: white;
+  background: #2a2456;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .toggle.on {
   background: linear-gradient(90deg, #7c5cff, #a855f7);
+}
+
+.toggle.on::after {
+  left: 28px;
+}
+
+.toggle:active::after {
+  width: 26px;
+}
+
+@media (max-width: 480px) {
+  .settings-page {
+    padding-top: 3rem;
+  }
+  
+  .settings-card {
+    border-radius: 20px;
+    padding: 1.5rem;
+  }
+
+  .setting-label {
+    font-size: 0.95rem;
+  }
 }
