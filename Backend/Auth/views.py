@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import UserDetails, Event, Story
+from .models import UserDetails, EventTable, StoryTable
 from .Serializers import (
     ProfileSerializer,
     EventSerializer,

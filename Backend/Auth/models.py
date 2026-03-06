@@ -48,7 +48,7 @@ class ParticipationRequestTable(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(EventTable, on_delete=models.CASCADE)
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     message = models.TextField()
@@ -63,7 +63,7 @@ class ParticipationTable(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(EventTable, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     collaboration_rating = models.IntegerField(default=0)
 
@@ -73,7 +73,7 @@ class ParticipationTable(models.Model):
 
 class AchievementTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(EventTable, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=40)
     description = models.CharField(max_length=100)
@@ -82,7 +82,7 @@ class AchievementTable(models.Model):
 
 class StoryTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(EventTable, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=120)
     content = models.TextField()
@@ -91,13 +91,13 @@ class StoryTable(models.Model):
 
 
 class StoryImageTable(models.Model):
-    story = models.ForeignKey(Story, on_delete=models.CASCADE, related_name="images")
+    story = models.ForeignKey(StoryTable, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to="story_images/")
 
 
 class StoryLikeTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    story = models.ForeignKey(Story, on_delete=models.CASCADE)
+    story = models.ForeignKey(StoryTable, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("user","story")
@@ -105,6 +105,6 @@ class StoryLikeTable(models.Model):
 
 class StoryCommentTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    story = models.ForeignKey(Story, on_delete=models.CASCADE)
+    story = models.ForeignKey(StoryTable, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

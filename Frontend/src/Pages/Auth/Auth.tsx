@@ -105,7 +105,7 @@ export const Signup = () => {
         }
 
         try {
-            const res = await fetch(`API/auth/signup/`, {
+            const res = await fetch(`/auth/signup/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -122,7 +122,7 @@ export const Signup = () => {
             alert(data.msg);
 
             if (data.success) {
-                const reslogin = await fetch(`API/api/token/`, {
+                const reslogin = await fetch(`/api/token/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
