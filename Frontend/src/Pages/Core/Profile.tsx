@@ -1,41 +1,24 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API } from "../../Config/api";
 import "../../Css/profile.css";
 
-type Achievement = {
-    type: string;
-    title: string;
-    description: string;
-    date: string;
-};
-
-type Event = {
-    name: string;
-    date: string;
-    role: string;
-};
-
 type ProfileType = {
+    id: number;
     name: string;
     age: number;
     branch: string;
     year: number;
-    email: string;
-    rating: number;
     bio: string;
-    achievements: Achievement[];
-    events: Event[];
 };
 
 export const Profile = () => {
-    const { username } = useParams<{ username: string }>();
     const [user, setUser] = useState<ProfileType | null>(null);
+    const username = localStorage.getItem("username");
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const res = await API("GET", `/profile/${username}`);
+                const res = await API("GET", "/auth/profile/");
 
                 if (res.success) {
                     setUser(res.data);
@@ -46,7 +29,7 @@ export const Profile = () => {
         };
 
         fetchProfile();
-    }, [username]);
+    }, []);
 
     if (!user) return <div className="profile-container">Loading profile...</div>;
 
@@ -66,9 +49,9 @@ export const Profile = () => {
                     <p className="profile-branch">
                         {user.branch} | Year {user.year}
                     </p>
-                    <p className="profile-email">{user.email}</p>
+                    <p className="profile-email">{username}</p>
                     <div className="profile-rating">
-                        ⭐ {user.rating} / 5
+                        🎓 Age: {user.age}
                     </div>
                 </div>
             </div>
@@ -76,28 +59,6 @@ export const Profile = () => {
             <div className="profile-section">
                 <h3 className="section-title">About</h3>
                 <p className="profile-bio">{user.bio}</p>
-            </div>
-
-            <div className="profile-section">
-                <h3 className="section-title">Achievements</h3>
-                {user.achievements?.map((ach, index) => (
-                    <div key={index} className="achievement-card">
-                        <h4>{ach.title}</h4>
-                        <p>{ach.description}</p>
-                        <small>{ach.date}</small>
-                    </div>
-                ))}
-            </div>
-
-            <div className="profile-section">
-                <h3 className="section-title">Events</h3>
-                {user.events?.map((event, index) => (
-                    <div key={index} className="event-card">
-                        <h4>{event.name}</h4>
-                        <p>Role: {event.role}</p>
-                        <small>{event.date}</small>
-                    </div>
-                ))}
             </div>
         </div>
     );

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "../../Css/Auth.css"
+import { API_BASE_URL } from "../../Config/api";
+import "../../Css/Auth.css";
 
 
 export const Login = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [UserName, SetUserName] = useState<string>("");
     const [Password, SetPassword] = useState<string>("");
@@ -16,7 +17,7 @@ export const Login = () => {
 
     const HandleSubmit = async () => {
         try {
-            const res = await fetch(`API/api/token/`, {
+            const res = await fetch(`${API_BASE_URL}/api/token/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -28,28 +29,21 @@ export const Login = () => {
             });
 
             if (!res.ok) {
-                alert("Invalid Credentials")
-                return
+                alert("Invalid Credentials");
+                return;
             }
 
             const data = await res.json();
 
-            localStorage.setItem("access", data.access)
-            localStorage.setItem("refresh", data.refresh)
+            localStorage.setItem("access", data.access);
+            localStorage.setItem("refresh", data.refresh);
+            localStorage.setItem("username", UserName);
 
-            const access = localStorage.getItem("access")
-            console.log(data);
+            navigate("/explore");
 
-            if (access) {
-                navigate("/Explore")
-            }
-
-            else {
-                alert("Something went wrong check")
-            }
         } catch (err) {
-            alert("something went wrong")
-            console.log(err)
+            alert("Something went wrong");
+            console.log(err);
         }
     };
 
@@ -65,29 +59,41 @@ export const Login = () => {
                     <div className="login-form">
                         <div className="input-group">
                             <label>UserName</label>
-                            <input placeholder="UserName" required maxLength={100} onChange={(e) => SetUserName(e.target.value)} />
+                            <input
+                                placeholder="UserName"
+                                required
+                                maxLength={100}
+                                value={UserName}
+                                onChange={(e) => SetUserName(e.target.value)}
+                            />
                         </div>
 
                         <div className="input-group">
                             <label>Password</label>
-                            <input type="password" placeholder="Password" required maxLength={20} minLength={8} onChange={(e) => SetPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                required
+                                maxLength={20}
+                                minLength={8}
+                                onChange={(e) => SetPassword(e.target.value)}
+                            />
                         </div>
 
-                        <button className="btn primary" onClick={HandleSubmit}> Submit </button>
+                        <button className="btn primary" onClick={HandleSubmit}>Submit</button>
+
                         <div className="signup-redirect">
-                            <p>New user? <NavLink to="/signup">Signup</NavLink> </p>
+                            <p>New user? <NavLink to="/signup">Signup</NavLink></p>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 
 export const Signup = () => {
-
     const navigate = useNavigate();
 
     const [Email, SetEmail] = useState<string>("");
@@ -96,16 +102,13 @@ export const Signup = () => {
     const [ConfirmPassword, SetConfirmPassword] = useState<string>("");
 
     const HandleSubmit = async () => {
-
-        console.log(Username, Email, Password)
-
-        if (ConfirmPassword != Password) {
-            alert("password Doesn't match")
-            return
+        if (ConfirmPassword !== Password) {
+            alert("Passwords don't match");
+            return;
         }
 
         try {
-            const res = await fetch(`/auth/signup/`, {
+            const res = await fetch(`${API_BASE_URL}/auth/signup/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -113,16 +116,15 @@ export const Signup = () => {
                 body: JSON.stringify({
                     username: Username,
                     email: Email,
-                    password: Password
+                    password: Password,
                 }),
             });
 
             const data = await res.json();
-            console.log(data);
             alert(data.msg);
 
             if (data.success) {
-                const reslogin = await fetch(`/api/token/`, {
+                const resLogin = await fetch(`${API_BASE_URL}/api/token/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -132,30 +134,24 @@ export const Signup = () => {
                         password: Password,
                     }),
                 });
-                if (!reslogin.ok) {
-                    alert("Invalid Credentials")
-                    return
-                }
-                const datalogin = await reslogin.json();
 
-                localStorage.setItem("access", datalogin.access)
-                localStorage.setItem("refresh", datalogin.refresh)
-                localStorage.setItem("username", Username)
-
-                const access = localStorage.getItem("access")
-
-                if (access) {
-                    navigate("/pageone")
+                if (!resLogin.ok) {
+                    alert("Login after signup failed");
+                    return;
                 }
-                else {
-                    alert("Something went wrong check")
-                }
+
+                const dataLogin = await resLogin.json();
+
+                localStorage.setItem("access", dataLogin.access);
+                localStorage.setItem("refresh", dataLogin.refresh);
+                localStorage.setItem("username", Username);
+
+                navigate("/explore");
             }
+        } catch (err) {
+            console.log(err);
         }
-        catch (err) {
-            console.log(err)
-        }
-    }
+    };
 
     return (
         <div className="ss-signup">
@@ -169,22 +165,36 @@ export const Signup = () => {
                     <div className="signup-form">
                         <div className="input-group">
                             <label>Username</label>
-                            <input placeholder="Username" onChange={(e) => SetUsername(e.target.value)} type="text" />
+                            <input
+                                placeholder="Username"
+                                onChange={(e) => SetUsername(e.target.value)}
+                                type="text"
+                            />
                         </div>
 
                         <div className="input-group">
                             <label>Email</label>
-                            <input placeholder="Email" type="email" onChange={(e) => SetEmail(e.target.value)} />
+                            <input
+                                placeholder="Email"
+                                type="email"
+                                onChange={(e) => SetEmail(e.target.value)}
+                            />
                         </div>
 
                         <div className="input-group">
                             <label>Password</label>
-                            <input type="password" onChange={(e) => SetPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                onChange={(e) => SetPassword(e.target.value)}
+                            />
                         </div>
 
                         <div className="input-group">
                             <label>Confirm Password</label>
-                            <input type="password" onChange={(e) => SetConfirmPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                onChange={(e) => SetConfirmPassword(e.target.value)}
+                            />
                         </div>
 
                         <button className="btn primary" onClick={HandleSubmit}>
@@ -192,13 +202,11 @@ export const Signup = () => {
                         </button>
 
                         <div className="login-redirect">
-                            <p>Already have an account?</p> <NavLink to="/login" >Login</NavLink>
+                            <p>Already have an account? <NavLink to="/login">Login</NavLink></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-    )
-}
+    );
+};

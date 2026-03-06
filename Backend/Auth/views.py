@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import UserDetails, EventTable, StoryTable
+from .models import UserDetails, EventTable, StoryTable, ProfileTable
 from .Serializers import (
     ProfileSerializer,
     EventSerializer,
@@ -62,7 +62,7 @@ def save_serializer(serializer_class, request):
     serializer = serializer_class(data=request.data)
 
     if serializer.is_valid():
-        serializer.save(user=request.user)
+        serializer.save()
         return Response({'success': True, 'data': serializer.data})
 
     return Response({'success': False, 'errors': serializer.errors})
@@ -73,37 +73,68 @@ def save_serializer(serializer_class, request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def FunctionSaveProfile(request):
-    return save_serializer(ProfileSerializer, request)
+    profile, created = ProfileTable.objects.update_or_create(
+        user=request.user,
+        defaults={
+            'name': request.data.get('name', ''),
+            'age': request.data.get('age', 0),
+            'branch': request.data.get('branch', ''),
+            'year': request.data.get('year', 0),
+            'bio': request.data.get('bio', ''),
+        }
+    )
+    serializer = ProfileSerializer(profile)
+    return Response({'success': True, 'data': serializer.data})
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def FunctionSaveEvent(request):
-    return save_serializer(EventSerializer, request)
+    serializer = EventSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(created_by=request.user)
+        return Response({'success': True, 'data': serializer.data})
+    return Response({'success': False, 'errors': serializer.errors})
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def FunctionSaveParticipationRequest(request):
-    return save_serializer(ParticipationRequestSerializer, request)
+    serializer = ParticipationRequestSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response({'success': True, 'data': serializer.data})
+    return Response({'success': False, 'errors': serializer.errors})
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def FunctionSaveParticipation(request):
-    return save_serializer(ParticipationSerializer, request)
+    serializer = ParticipationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response({'success': True, 'data': serializer.data})
+    return Response({'success': False, 'errors': serializer.errors})
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def FunctionSaveAchievement(request):
-    return save_serializer(AchievementSerializer, request)
+    serializer = AchievementSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response({'success': True, 'data': serializer.data})
+    return Response({'success': False, 'errors': serializer.errors})
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def FunctionSaveStory(request):
-    return save_serializer(StorySerializer, request)
+    serializer = StorySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response({'success': True, 'data': serializer.data})
+    return Response({'success': False, 'errors': serializer.errors})
 
 
 # ================= GET =================
@@ -113,26 +144,30 @@ def get_serializer(serializer_class, queryset):
     return Response({'success': True, 'data': serializer.data})
 
 
-# ================= READING APIs =================
+# ================= READING APIs ================
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def FunctionGetProfile(request):
-    profile = UserDetails.objects.filter(user=request.user)
-    return get_serializer(ProfileSerializer, profile)
+    try:
+        profile = ProfileTable.objects.get(user=request.user)
+        serializer = ProfileSerializer(profile)
+        return Response({'success': True, 'data': serializer.data})
+    except ProfileTable.DoesNotExist:
+        return Response({'success': False, 'msg': 'Profile not found'})
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def FunctionGetEvents(request):
-    events = Event.objects.all().order_by('-id')
+    events = EventTable.objects.all().order_by('-id')
     return get_serializer(EventSerializer, events)
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def FunctionGetStories(request):
-    stories = Story.objects.all().order_by('-id')
+    stories = StoryTable.objects.all().order_by('-id')
     return get_serializer(StorySerializer, stories)
 
 
@@ -142,8 +177,8 @@ def FunctionGetStories(request):
 @permission_classes([IsAuthenticated])
 def FunctionDeleteStory(request, id):
     try:
-        story = Story.objects.get(id=id, user=request.user)
+        story = StoryTable.objects.get(id=id, user=request.user)
         story.delete()
         return Response({'success': True})
-    except Story.DoesNotExist:
+    except StoryTable.DoesNotExist:
         return Response({'success': False, 'msg': 'Not found'})

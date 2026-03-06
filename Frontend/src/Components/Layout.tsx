@@ -1,18 +1,18 @@
-import { Outlet } from "react-router-dom";
-import "../Css/Navbar.css"
+import { Outlet, useNavigate } from "react-router-dom";
+import "../Css/Navbar.css";
 import Sidebar from "./Navbar";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const MainLayout = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const access = localStorage.getItem("access")
-    //     if(!access){
-    //         navigate('/')
-    //     }
-    // })
+    useEffect(() => {
+        const access = localStorage.getItem("access");
+        if (!access) {
+            navigate("/login");
+        }
+    }, [navigate]);
+
     return (
         <div className="app-layout">
             <Sidebar />
