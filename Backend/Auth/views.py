@@ -171,7 +171,6 @@ def FunctionGetStories(request):
 
 
 # ================= MATES =================
-# Returns all registered users except the logged-in user
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -190,7 +189,6 @@ def FunctionGetMates(request):
 
 
 # ================= PAST EVENTS =================
-# Returns all events whose date is before today
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
