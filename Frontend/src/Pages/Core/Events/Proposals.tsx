@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API } from "../../../Config/api";
+import "../../../Css/proposal.css";
 
 type ProposalData = {
     role: string;
@@ -23,10 +24,10 @@ export default function ParticipationProposal({ eventId }: { eventId: number }) 
         setData(p => ({ ...p, status: "Sending..." }));
 
         try {
-            const res = await API("POST", "/participation-request/save", {
+            const res = await API("POST", "/auth/participation-request/save/", {
                 event: eventId,
                 role: data.role,
-                message: data.message
+                message: data.message,
             });
 
             if (res.success) {
@@ -53,6 +54,7 @@ export default function ParticipationProposal({ eventId }: { eventId: number }) 
                 className="proposal-input"
             >
                 <option value="member">Member</option>
+                <option value="leader">Leader</option>
             </select>
 
             <label>Why should you be selected?</label>

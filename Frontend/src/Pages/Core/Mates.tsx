@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { API } from "../../Config/api";
-import "../../Css/mates.css"
+import "../../Css/mates.css";
 
 interface Mate {
     id: number;
@@ -10,31 +10,33 @@ interface Mate {
 
 export default function Mates() {
     const [mates, setMates] = useState<Mate[]>([]);
-   
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchMates = async () => {
             try {
-                const res = await API("GET", "/mates");
-
-                // your backend format -> { success, data }
+                const res = await API("GET", "/auth/mates/");
                 if (res.success) {
                     setMates(res.data);
                 }
-
             } catch (err) {
                 console.log(err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchMates();
     }, []);
 
+    if (loading) return <div className="mates-page"><p>Loading mates...</p></div>;
+
     return (
         <div className="mates-page">
             <h2>Your Mates</h2>
 
             {mates.length === 0 ? (
-                <p>No teammates yet</p>
+                <p>No other users yet</p>
             ) : (
                 <div className="mates-grid">
                     {mates.map((mate) => (

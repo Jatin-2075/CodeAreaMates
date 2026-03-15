@@ -19,6 +19,8 @@ urlpatterns = [
     path('profile/', views.FunctionGetProfile),
     path('events/', views.FunctionGetEvents),
     path('stories/', views.FunctionGetStories),
+    path('mates/', views.FunctionGetMates),
+    path('past-events/', views.FunctionGetPastEvents),
 
     # DELETE
     path('story/delete/<int:id>/', views.FunctionDeleteStory),

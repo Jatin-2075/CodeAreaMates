@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.utils import timezone
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -7,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import UserDetails, EventTable, StoryTable, ProfileTable
+from .models import UserDetails, EventTable, StoryTable, ProfileTable, ParticipationTable
 from .Serializers import (
     ProfileSerializer,
     EventSerializer,
@@ -60,11 +61,9 @@ def FunctionLogin(request):
 
 def save_serializer(serializer_class, request):
     serializer = serializer_class(data=request.data)
-
     if serializer.is_valid():
         serializer.save()
         return Response({'success': True, 'data': serializer.data})
-
     return Response({'success': False, 'errors': serializer.errors})
 
 
@@ -169,6 +168,49 @@ def FunctionGetEvents(request):
 def FunctionGetStories(request):
     stories = StoryTable.objects.all().order_by('-id')
     return get_serializer(StorySerializer, stories)
+
+
+# ================= MATES =================
+# Returns all registered users except the logged-in user
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def FunctionGetMates(request):
+    users = User.objects.exclude(id=request.user.id).order_by('username')
+
+    data = []
+    for user in users:
+        data.append({
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+        })
+
+    return Response({'success': True, 'data': data})
+
+
+# ================= PAST EVENTS =================
+# Returns all events whose date is before today
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def FunctionGetPastEvents(request):
+    today = timezone.now().date()
+
+    events = EventTable.objects.filter(
+        date__lt=today
+    ).order_by('-date')
+
+    data = []
+    for event in events:
+        data.append({
+            'id': event.id,
+            'title': event.name,
+            'date': str(event.date),
+            'description': event.description,
+        })
+
+    return Response({'success': True, 'data': data})
 
 
 # ================= DELETE =================
